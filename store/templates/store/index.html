@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} Perruques - lariParis {% endblock title %}
+{% block content %}
+<!-- Hero Start -->
+<section class="home-slider position-relative">
+    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="3000">
+                <div class="bg-home pb-md-0 d-flex align-items-center" style="background: url('/static/images/bg/accueil_b1.jpg') top">
+                </div><!--end slide-->
+            </div>
+        </div>
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+    </div>
+</section><!--end section-->
+<!-- Hero End -->
+
+<!-- Categorie & Services Product -->
+<section class="section mt-60 pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="mb-4 mt-100 text-center">CATEGORIES</h4>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row">
+            {% for categorie in categories %}
+                <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                    <div class="card shop-list border-0">
+                        <div class="shop-image position-relative overflow-hidden rounded shadow">
+                            <a href="{% url 'product_categorie' categorie.id %}"><img src="{{categorie.image_categorie.url}}" class="img-fluid product-image" alt=""></a>
+                            <a href="{% url 'product_categorie' categorie.id %}" class="overlay-work">
+                                <img src="{{categorie.image_categorie1.url}}" class="img-fluid" alt="">
+                            </a>
+                        </div>
+                        <div class="card-body content pt-4 p-2">
+                            <a href="{% url 'product_categorie' categorie.id %}" class="text-dark product-name h6">{{categorie.name | upper}}</a>
+                        </div>
+                    </div>
+                </div><!--end col-->
+            {% endfor %}
+        </div><!--end row-->
+    </div><!--end container-->
+
+    <div class="container pt-5 mt-60">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="mb-5 pt-5 text-center">Prestations de Services</h4>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row g-4">
+            <div class="col-lg-6 col-md-6">
+                <div class="bg-soft-secondary shop-advertise rounded p-4 py-md-5 px-lg-5">
+                    <div class="border border-2 rounded p-4 py-md-5 px-lg-4 me-lg-5">
+                        <ul class="card list-unstyled mb-0">
+                            <li><a href="javascript:void(0)" class="h4 text-dark">Mise en beauté <br> de Mariée</a></li>
+
+                            <li class="mt-4"><a href="javascript:void(0)" class="text-secondary border-bottom">Reservation</a></li>
+                        </ul>
+                        <img src="{% static  'images/shop/items/mariage_service.png' %}" class="img-fluid ad-image" alt="">
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-lg-6 col-md-6">
+                <div class="bg-soft-info shop-advertise rounded p-4 py-md-5 px-lg-5">
+                    <div class="border border-2 rounded p-4 py-md-5 px-lg-4 me-lg-5">
+                        <ul class="card list-unstyled mb-0">
+                            <li><a href="javascript:void(0)" class="h4 text-dark">Pose de <br> Perruques</a></li>
+
+                            <li class="mt-4"><a href="javascript:void(0)" class="text-secondary border-bottom">reservation</a></li>
+                        </ul>
+                        <img src="{% static  'images/shop/items/service_mariage1.png' %}" class="img-fluid ad-image" alt="">
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+
+</section>
+<!-- features products -->
+<section class="section pt-5">
+    <div class="container  mt-60">
+        <div class="row">
+            <div class="col-12">
+                <h4 class="mb-0 text-center">Articles Récents</h4>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row">
+            <div class="col-12 mt-4 pt-2">
+                <div class="tiny-four-item">
+                    {% for product in products %}
+                        <div class="tiny-slide">
+                            <div class="card shop-list border-0 m-1">
+                                <!--<ul class="label list-unstyled mb-0">
+                                    <li><a href="javascript:void(0)" class="badge bg-primary rounded-lg">New</a></li>
+                                </ul> -->
+                                <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                    <a href="{% url 'product_detail' product.id %}"><img src="{{product.image1.url}}" class="img-fluid product-image" alt=""></a>
+                                    <a href="{% url 'product_detail' product.id %}" class="overlay-work"><img src="{{product.image2.url}}" class="img-fluid" alt=""></a>
+
+                                    <ul class="list-unstyled shop-icons">
+                                        <li><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                        <li class="mt-1"><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                    </ul>
+
+                                </div>
+                                <div class="card-body content pt-4 p-2">
+                                    <a href="{% url 'product_detail' product.id %}" class="text-dark product-name h6">{{product.name|upper}}</a>
+                                    <div class="d-flex justify-content-between mt-1">
+                                        <h6 class="text-muted small font-italic mb-0 mt-1">{{product.price}} €</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end slide-->
+                    {% endfor %}
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section>
+{% endblock content %}
+{% block js %}
+    <script type="text/javascript">
+        console.log('Juste pour tester')
+        if (localStorage.getItem('panier')==null){
+            var panier = {};
+        }else{
+            panier = JSON.parse(localStorage.getItem('panier'));
+        }
+    </script>
+{% endblock %}

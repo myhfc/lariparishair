@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} lariParis {% endblock title %}
+
+{% block content %}
+<!-- Start -->
+<section class="section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <div class="tiny-single-item">
+                    <div class="tiny-slide"><img src="{{product.image1.url}}" class="img-fluid rounded" alt="{{product.name}}" ></div>
+                    <div class="tiny-slide"><img src="{{product.image1.url}}" class="img-fluid rounded" alt="{{product.name}}"></div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-md-8 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                <div class="section-title ms-md-4">
+                    <div class="row col-12">
+                        <div class="row mt-2 pt-2 mb-2 col-12">
+                            <h4 class="title col-5">{{product.name|upper}}</h4>
+                            <h5 class="title text-muted col-4">{{product.price}} €</h5>
+                        </div>
+                        <ul class="list-unstyled text-muted mb-2">
+                            <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span> {{product.short_description1}}</li>
+                            <li class="mb-2"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span> {{product.short_description2}}</li>
+                        </ul>
+                    </div><!--end row-->
+                        
+                    {% if lace_list and finition_list %}
+                    <form action="{% url 'process_add_to_cart' product.id%}" method="POST">
+                        {% csrf_token %}
+                        <input id="product_price" name="product_price" type="text" value="{{product.price}}" hidden>
+                        
+                        <div class="row mt-2 pt-1">
+                            <div class="col-lg- col-10">
+                                <div class="d-flex shop-list align-items-center">
+                                    <h6 class="mb-0 col-4">Choix Lace :</h6>
+                                    <div class="p-1 mb-0 col-4">
+                                        <select id="lace" name="lace" class="form-select form-control btn-soft-dark shop-icons mb-0 ms-3" aria-label="Default select example">
+                                            {% for lace in lace_list %}
+                                                {% if product.lace.name == lace.name%}
+                                                    <option class="list-inline-item" value="{{lace.id}}" selected="{{lace.id}}">{{lace.name}}</option>
+                                                {% else %}
+                                                    <option class="list-inline-item" value="{{lace.id}}" >{{lace.name}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                            
+                            <div class="col-lg- col-10">
+                                <div class="d-flex shop-list align-items-center">
+                                    <h6 class="mb-0 col-4">Finition :</h6>
+                                    <div class="p-1 mb-0 col-4">
+                                        <select id="finition" name="finition" class="form-select form-control btn-soft-dark shop-icons mb-0 ms-3" aria-label="Default select example">
+                                            {% for finition in finition_list %}
+                                                {% if product.finition.name == finition.name%}
+                                                    <option class="ms-1 list-inline-item" value="{{finition.id}}" selected="{{finition.id}}">{{finition.name}}</option>
+                                                {% else %}
+                                                    <option class="list-inline-item" value="{{finition.id}}" >{{finition.name}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+
+                            <div class="col-lg- col-10 mb-1">
+                                <div class="d-flex shop-list align-items-center">
+                                    <h6 class="mb-0 col-4">Taille :</h6>
+                                    <div class="p-1 mb-0 col-4">
+                                        <select id="taille" name="taille" class="form-select form-control btn-soft-dark shop-icons mb-0 ms-3" aria-label="Default select example">
+                                            {% for taille in taille_list %}
+                                                {% if product.taille.name == taille.name%}
+                                                    <option class="ms-1 list-inline-item" value="{{taille.id}}" selected="{{taille.id}}">{{taille.name}}</option>
+                                                {% else %}
+                                                    <option class="ms-1 list-inline-item" value="{{taille.id}}" >{{taille.name}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                        
+                            <div class="col-lg- col-10 mt-4 mt-lg-0">
+                                <div class="d-flex shop-list align-items-center">
+                                    <h6 class="mb-0 col-4">Quantité :</h6>
+                                    <div class="p-1 mb-0 col-4">
+                                        <input id="quantity" name="quantity" type="number" min="1" class="form-control shop-icons btn-soft-dark  mb-0 ms-3"  >
+                                    </div>
+                                    <!--<h6 class="mb-0 col-4">Quantité :</h6>
+                                    <div class="qty-icons ms-3 col-8">
+                                        <button id="qty_minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-soft-dark  btn-icon  minus">-</button>
+                                        <input type="number" id="qty_value" min="1" name="quantity" value="1"  class="btn btn-icon btn-soft-dark qty-btn quantity">
+                                        
+                                        <button id="qty_minus" onclick="add_qty()" class="btn btn-icon btn-soft-dark plus">+</button> 
+                                    </div>-->
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                        <div class="row mt-2 pt-2 mb-2 col-10">
+                            <div class="col-lg- col-5 mb-1">
+                                <button type="submit" name="action" value="add-to-cart" class="btn btn-soft-primary ms-2 pt-2"> Ajouter Panier</button>
+                            </div>
+                            <div class="col-lg- col-6 mb-1">
+                                <button type="submit" name="action" value="go-to-checkout" class="btn btn-primary ms-2 pt-2">Acheter Maintenant </button>
+                            </div>
+                        </div>
+                    </form>
+                        
+                    {% else %}
+                    <form action="{% url 'process_add_to_cart' product.id%}" method="POST">
+                        {% csrf_token %}
+                        
+                        <input id="product_price" name="product_price" type="text" value="{{product.price}}" hidden>
+                        <input id="product_id" type="hidden" value="{{product.id}}">
+                        <input id="categorie_id" type="hidden" value="{{product.categorie.id}}">
+                        <div class="row mt-4 pt-5 mb-2">
+                            <div class="col-lg- col-10 mb-1">
+                                <div class="d-flex shop-list align-items-center">
+                                    <h6 class="mb-0 col-4">Taille :</h6>
+                                    <div class="p-1 mb-0 col-4">
+                                        <select id="taille" name="taille" class="form-select form-control btn-soft-dark shop-icons mb-0 ms-3" aria-label="Default select example" required>
+                                            {% for taille in taille_list %}
+                                                {% if product.taille.name == taille.name%}
+                                                    <option class="ms-1 list-inline-item" value="{{taille.id}}" selected="{{taille.id}}">{{taille.name}}</option>
+                                                {% else %}
+                                                    <option class="ms-1 list-inline-item" value="{{taille.id}}" >{{taille.name}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><!--end col-->
+                        
+                            <div class="col-lg- col-10 mt-4 mt-lg-0">
+                                <div class="d-flex shop-list align-items-center">
+                                    <h6 class="mb-0 col-4">Quantité :</h6>
+                                    <div class="p-1 mb-0 col-4">
+                                        <input id="quantity" name="quantity" type="number" value="1" min="1" class="form-control shop-icons btn-soft-dark  mb-0 ms-3" required >
+                                    </div>
+                                    <!-- <div class="text-center qty-icons ms-3 col-">
+                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="btn btn-pills btn-icon btn-soft-dark minus">-</button>
+                                        <input min="0" name="quantity" value="7" type="number" class="btn btn-pills btn-icon btn-soft-dark qty-btn quantity">
+                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="btn btn-pills btn-icon btn-soft-dark plus">+</button>
+                                    </div> -->
+                                    
+                                </div>
+                            </div><!--end col-->
+                        </div><!--end row-->
+
+                        <div class="row mt-2 pt-2 mb-2 col-md-8">
+                            <div class="col-lg- col-5 mb-1">
+                                <button id="{{product.id}}" type="button" name="action" value="add-to-cart" class="addToCart btn btn-soft-primary ms-2 pt-2"> Ajouter Panier</button>
+                            </div>
+                            <div class="col-lg- col-6 mb-1">
+                                <button type="submit" name="action" value="go-to-checkout" class="btn btn-primary ms-2 pt-2">Acheter Maintenant </button>
+                            </div>
+                        </div>
+                    </form>
+                    {% endif %}
+                    
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row align-items-center">
+            
+            <div class="col-md-8 mt-4 mt-sm-0 pt-2 pt-sm-0">
+                <div class="section-title ms-md-4 col-10">
+                    <h5 class="mt-4 py-2">Description :</h5>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span> {{product.short_description1}}</li>
+                        <li class="mb-0"><span class="text-primary h5 me-2"><i class="uil uil-check-circle align-middle"></i></span> {{product.short_description2}}</li>
+                    </ul>
+                    <p class="text-muted">{{product.description}}</p>
+                </div>
+            </div> <!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section>
+
+<!-- features products -->
+<section class="section pt-5">
+    <div class="container mt-60">
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mb-0 text-center">Articles Similaires</h5>
+            </div><!--end col-->
+        </div><!--end row-->
+
+        <div class="row">
+            <div class="col-12 mt-4 pt-2">
+                <div class="tiny-four-item">
+                    {% for product in product_similaires %}
+                    <div class="tiny-slide">
+                        <div class="card shop-list border-0 m-1">
+                            <!--<ul class="label list-unstyled mb-0">
+                                <li><a href="javascript:void(0)" class="badge bg-primary rounded-lg">New</a></li>
+                            </ul> -->
+                            <div class="shop-image position-relative overflow-hidden rounded shadow">
+                                <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image1.url }}" class="img-fluid product-image" alt=""></a>
+                                <a href="{% url 'product_detail' product.id %}" class="overlay-work">
+                                    <img src="{{ product.image2.url }}" class="img-fluid" alt="">
+                                </a>
+
+                                <ul class="list-unstyled shop-icons">
+                                    <li><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-danger"><i data-feather="heart" class="icons"></i></a></li>
+                                    <li class="mt-1"><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                                </ul>
+
+                            </div>
+                            <div class="card-body content pt-4 p-2">
+                                <a href="{% url 'product_detail' product.id %}" class="text-dark product-name h6">{{product.name}}</a>
+                                <div class="d-flex justify-content-between mt-1">
+                                    <h6 class="text-muted small font-italic mb-0 mt-1">{{product.price}} €</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--end slide-->
+                    {% endfor %}
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+</section>
+
+{% endblock content %}

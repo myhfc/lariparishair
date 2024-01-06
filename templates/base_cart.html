@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <title>{% block title %}{% endblock title%}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Perruques, Tissages, Qualité, Supérieure, PonyTail, Extensions, Cheveux" />
+        <meta name="keywords" content="Perruques, Tissages, Qualité, Supérieure, PonyTail, Extensions, Cheveux" />
+        <meta name="author" content="www.myholyfathercompany.com" />
+        <meta name="email" content="contact@lariparis.fr" />
+        <meta name="website" content="https://wwww.lariparis.fr" />
+        <meta name="Version" content="v1.0.0" />
+        <!-- Bootstrap -->
+        <link href="{%  static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{%  static 'css/tiny-slider.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{%  static 'css/materialdesignicons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet">
+        <!-- Main Css -->
+        <link href="{%  static 'css/style.min.css' %}" rel="stylesheet" type="text/css" id="theme-opt" />
+        <!-- favicon -->
+        <link href="{%  static 'images/favicon.ico' %}" rel="shortcut icon">
+    </head>
+    
+    <body>
+        <header id="topnav" class="defaultscroll sticky">
+            <div class="container">
+                <!-- Logo container-->
+                <a class="logo" href="{% url 'index' %}">
+                    <span class="logo-light-mode">
+                        <img src="{% static 'images/logo/white_backgroung_logo_lariParis.png'  %}" class="l-dark" alt="" width="100px">
+                        <img src="{% static 'images/logo/white_backgroung_logo_lariParis.png' %}" class="l-light" alt="" width="100px">
+                    </span>
+                    <img src="{% static 'images/logo/dark_backgroung_logo_lariParis.png' %}" class="logo-dark-mode" alt="" width="100px">
+                </a>
+                <!-- End Logo container-->
+                <div class="menu-extras">
+                    <div class="menu-item">
+                        <!-- Mobile menu toggle-->
+                        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+                            <div class="lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </a>
+                        <!-- End mobile menu toggle-->
+                    </div>
+                </div>
+
+                <ul class="buy-button list-inline mb-0">
+                    <li class="list-inline-item search-icon mb-0">
+                        <div class="dropdown">
+                            <button type="button" class="btn bg-soft-primary btn-link dropdown-toggle mb-1 p-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="uil uil-search h5 mb-0"></i> <!--class="uil uil-search h5 text-dark mb-0"-->
+                            </button>
+                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow rounded border-0 mt-4 py-0" style="width: 300px;">
+                                <form class="p-4">
+                                    <input type="text" id="text" name="name" class="form-control border bg-white" placeholder="Search...">
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-inline-item mb-0 ps-2">
+                        <div class="dropdown">
+                            <a  href="{%url 'shop_cart' %}" class="btn bg-soft-primary btn-link text-decoration-none dropdown-toggle mb-1 p-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="shopping-cart" class="icons h5 mb-0"></i><!--class="text-dark" <i class="uil uil-shopping-bag h5 mb-0"></i> -->
+                                <span class="badge rounded-pill text-success position-absolute top-0 end-0" style="z-index: -1;" role="status">
+                                    <i class="mdi rounded-pill mdi-circle"></i>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow rounded border-0 mt-4 py-0" style="width: 300px;">
+                                {% if cart %}
+                                <div class="p-4">
+                                    {% for art in article_list%}
+                                    <a href="javascript:void(0)" class="d-flex align-items-center mb-3">
+                                        <img src="{{art.product.image1.url}}" class="shadow rounded" style="max-height: 64px;" alt="">
+                                        <div class="flex-1 text-start ms-3">
+                                            <h6 class="text-dark mb-0">{{art.product.name}}</h6>
+                                            <p class="text-muted mb-0">{{art.product.price}} € X {{art.quantity}}</p>
+                                        </div>
+                                        <h6 class="text-dark mb-0">{{art.price}}</h6>
+                                    </a>
+                                    {%endfor%}
+                                </div>
+
+                                <div class="d-flex align-items-center justify-content-between p-4 border-top">
+                                    <h6 class="text-dark mb-0">Total(€):</h6>
+                                    <h6 class="text-dark mb-0">{{cart.total_price}} €</h6>
+                                </div>
+
+                                <div class="text-center">
+                                    <a href="{% url 'shop_cart' %}" class="btn btn-primary me-2">View Cart</a>
+                                    <a href="{% url 'shop_delivery' %}" class="btn btn-primary">Checkout</a>
+                                </div>
+
+                                <div class="p-4 pt-2">
+                                    <small class="text-muted text-start mb-0"><span class="text-danger">*</span>T&C Apply</small>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="list-inline-item mb-0 ps-2">
+                        <div class="dropdown">
+                            <button type="button" class="btn bg-soft-primary btn-link text-decoration-none dropdown-toggle mb-1 p-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="uil uil-user h5 mb-0"></i><!--class="text-dark"-->
+                            </button>
+                            <div class="dropdown-menu dd-menu dropdown-menu-end bg-white shadow rounded border-0 mt-4 py-0" style="width: 300px;">
+                                    {% if user.is_authenticated %}
+                                    <div class="p-4">
+                                        <a href="javascript:void(0)" class="d-flex align-items-center text-center justify-content-between">
+                                            <img src="{% static  'images/client/01.jpg' %}" class="shadow rounded" style="max-height: 64px;" alt="">
+                                            <div class="flex-1">
+                                                <h6 class="text-dark mb-0 ms-3">{{ user.first_name }}</h6>
+                                                <p class="text-muted mb-0 ms-3">{{ user.last_name }}</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="d-flex text-center justify-content-between p-4 border-top">
+                                        <a href="javascript:void(0)" class="btn btn-soft-primary me-2">Mon Compte</a>
+                                        <a href="{% url 'logout' %}" class="btn btn-soft-dark">Déconnexion</a>
+                                    </div>
+                                {% else %}
+                                    <div class="text-center">
+                                        <a href="{% url 'login' %}" class="btn btn-soft-dark me-2">se connecter</a>
+                                        <a href="{% url 'signup' %}" class="btn btn-soft-dark">s'inscrire</a>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div id="navigation">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu nav-right">
+                        <li><a href="{% url 'index' %}" class="sub-menu-item">ACCUEIL</a></li>
+                        <li class="has-submenu parent-parent-menu-item">
+                            <a href="{% url 'catalogue' %}">BOUTIQUE</a>
+                            <ul class="submenu">
+                                <li class="has-submenu parent-menu-item"><a href="{% url 'product_categorie' 1 %}">PERRUQUES</a><span class="submenu-arrow"></span>
+                                    <ul class="submenu">
+                                        <li><a href="{% url 'perruque_lace' categorie_id=1 lace_id=1 %}" class="sub-menu-item">Transparent Lace</a></li>
+                                        <li><a href="{% url 'perruque_lace' categorie_id=1 lace_id=2 %}" class="sub-menu-item">HD Closure</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="{% url 'product_categorie' 2 %}" class="sub-menu-item">TISSAGES</a></li>
+                                <li><a href="{% url 'product_categorie' 3 %}" class="sub-menu-item">EXTENSIONS</a></li>
+                                <li><a href="{% url 'product_categorie' 4 %}" class="sub-menu-item">PONYTAILS</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="has-submenu parent-parent-menu-item">
+                            <a href="javascript:void(0)">PRESTATIONS</a><span class="menu-arrow"></span>
+                            <ul class="submenu">
+                                <li><a href="javascript:void(0)"  class="sub-menu-item">PRESSING</a></li>
+                                <li><a href="javascript:void(0)"  class="sub-menu-item">POSE de PERRUQUE</a></li>
+                                <li><a href="javascript:void(0)"  class="sub-menu-item">LISSAGE BRESILIEN</a></li>
+                                <li class="has-submenu parent-menu-item"><a href="javascript:void(0)">COIFFURE</a><span class="submenu-arrow"></span>
+                                    <ul class="submenu">
+                                        <li><a href="blog-image-mariage.html" class="sub-menu-item">Mariages</a></li>
+                                        <li><a href="blog-image-soiree-habillee.html" class="sub-menu-item">Soirées Habillées</a></li>
+                                        <li><a href="blog-image-grid-defile-mode.html" class="sub-menu-item">DéFILé de mode</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="page-contact.html" class="sub-menu-item">PRESENTATION</a></li>
+                        <li><a href="page-contact.html"  class="sub-menu-item">Contact</a></li>
+                    </ul><!--end navigation menu-->
+                </div><!--end navigation-->
+            </div> <!--end container-->
+        </header><!--end header-->
+        <!-- Navbar End -->
+
+        <main>
+            {% block content %} {% endblock content %}
+        </main>
+
+        <!-- Footer Start -->
+        <footer class="footer bg-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer-py-60">
+                            <div class="row">
+                                <div class="col-lg-3 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
+                                    <a href="#" class="logo-footer">
+                                        <img src="{% static  'images/logo/dark_backgroung_logo_lariParis.png' %}" height="65" alt="">
+                                    </a>
+                                    <ul class="list-unstyled social-icon foot-social-icon mb-0 mt-4">
+                                        <li class="list-inline-item"><a href="http://linkedin.com/company/shreethemes" target="_blank" class="rounded"><i class="uil uil-linkedin" title="Linkedin"></i></a></li>
+                                        <li class="list-inline-item"><a href="https://www.facebook.com/shreethemes" target="_blank" class="rounded"><i class="uil uil-facebook-f align-middle" title="facebook"></i></a></li>
+                                        <li class="list-inline-item"><a href="https://www.instagram.com/shreethemes/" target="_blank" class="rounded"><i class="uil uil-instagram align-middle" title="instagram"></i></a></li>
+                                        <li class="list-inline-item"><a href="https://twitter.com/shreethemes" target="_blank" class="rounded"><i class="uil uil-twitter align-middle" title="twitter"></i></a></li>
+                                        <li class="list-inline-item"><a href="mailto:support@shreethemes.in" class="rounded"><i class="uil uil-envelope align-middle" title="email"></i></a></li>
+                                    </ul><!--end icon-->
+                                    <div class="d-flex align-items-center  p-2">
+                                        <i class="uil uil-shield-check align-middle h5 mb-0 me-2"></i>
+                                        <h6 class="mb-0 ">Paiement Sécurisé</h6>
+                                    </div>
+                                </div><!--end col-->
+                                
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-12 mb-4 pb-2">
+                                            <h5 class="footer-head mb-0">Perruques, Tissages & Extensions</h5>
+                                        </div><!--end col-->
+
+                                        <div class="col-lg-4 col-md-4 col-12">
+                                            <ul class="list-unstyled footer-list">
+                                                <li><a href="{% url 'perruque_lace' categorie_id=1 lace_id=1 %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Perruques TL</a></li>
+                                                <li><a href="{% url 'perruque_lace' categorie_id=1 lace_id=2 %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Perruques HD </a></li>
+                                                <li><a href="{% url 'product_categorie' 1 %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Perruque Lisse </a></li>
+                                                <li><a href="{% url 'product_categorie' 1 %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Perruque bouclée </a></li>
+                                            </ul>
+                                        </div><!--end col-->
+                                        
+                                        <div class="col-lg-4 col-md-4 col-12 mt-2 mt-sm-0">
+                                            <ul class="list-unstyled footer-list">
+                                                <li><a href="{% url 'product_categorie' 2 %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Tissages </a></li>
+                                                <li><a href="{% url 'product_categorie' 4 %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> PonyTails </a></li>
+                                                <li><a href="{% url 'product_categorie' 3 %}" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Extensions </a></li>
+                                                <li><a href="javascript:void(0)" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Accessoires </a></li>
+                                                
+                                            </ul>
+                                        </div><!--end col-->
+                                        
+                                        <div class="col-lg-4 col-md-4 col-12 mt-2 mt-sm-0">
+                                            <ul class="list-unstyled footer-list">
+                                                <li><a href="index-fashion.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Mon Compte </a></li>
+                                                <li><a href="index-fashion.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Commandes </a></li>
+                                                <li><a href="index-fashion.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Liste d'envies </a></li>
+                                                <li><a href="index-fashion.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> S.A.V.</a></li>
+                                            </ul>
+                                        </div><!--end col-->
+                                    </div><!--end row-->
+                                </div><!--end col-->
+            
+                                <div class="col-lg-3 col-md-6 col-12 mt-4 mt-lg-0 pt-2 pt-lg-0">
+                                    <div class="col-12 mb-4 pb-2">
+                                        <h5 class="footer-head mb-0">Prestations</h5>
+                                    </div><!--end col-->
+                                    
+                                    <div >
+                                        <ul class="list-unstyled footer-list">
+                                            <li><a href="index-fashion.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Mise en beauté de Mariée </a></li>
+                                            <li><a href="index-fashion.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Défilés de mode </a></li>
+                                            <li><a href="index-fashion.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Conférences </a></li>
+                                            <li><a href="index-fashion.html" class="text-foot"><i class="uil uil-angle-right-b me-1"></i> Pressing de perruques</a></li>
+                                        </ul>
+                                    </div><!--end col-->
+                                </div><!--end col-->
+                            </div><!--end row-->
+                        </div>
+                    </div><!--end col-->
+                </div><!--end row-->
+            </div><!--end container-->
+
+
+            <div class="footer-border">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="footer-py-30">
+                                <div class="container text-center">
+                                    <div class="row justify-content-center">
+                                        <div class="col">
+                                            <div class="text-center">
+                                                <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> lariparis Design with <i class="mdi mdi-heart text-danger"></i> by <a href="https://myholyfathercompany.com/" target="_blank" class="text-reset">MyHFC</a>.</p>
+                                            </div>
+                                        </div><!--end col-->
+                                    </div><!--end row-->
+                                </div><!--end container-->
+                            </div>
+                        </div><!--end col-->
+                    </div><!--end row-->
+                </div><!--end container-->
+            </div>
+        </footer><!--end footer-->
+        <!-- Footer End -->
+
+    
+
+        <!-- Back to top -->
+        <ul class="text-center list-unstyled switcher-button mb-0 position-fixed" style="top: 20%; left: 10px; z-index: 2;">
+            <li class="d-grid"><a href="javascript:void(0)" class="btn btn-icon rounded-circle btn-dark dark-version t-dark" onclick="setTheme('style-dark')"> <i class="uil uil-moon fs-5"></i> </a></li>
+            <li class="d-grid"><a href="javascript:void(0)" class="btn btn-icon rounded-circle btn-dark light-version t-light" onclick="setTheme('style')"> <i class="uil uil-sun fs-5"></i> </a></li>
+            <!--<li class="d-grid"><a href="https://1.envato.market/starty" target="_blank" class="btn btn-icon rounded-circle btn-primary mt-2"> <i class="uil uil-shopping-cart fs-5"></i> </a></li> -->
+        </ul>
+        <a href="javascript:void(0)" onclick="topFunction()" id="back-to-top" class="back-to-top rounded-pill"><i class="mdi mdi-arrow-up"></i></a>
+        <!-- Back to top -->
+    
+
+        <!-- javascript -->
+        <script src="{% static  'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static  'js/tiny-slider.js' %}"></script>
+        <script src="{% static  'js/feather.min.js' %}"></script>
+        <!-- Main Js -->
+        <script src="{% static  'js/plugins.init.js' %}"></script><!--Note: All init js like tiny slider, counter, countdown, maintenance, lightbox, gallery, swiper slider, aos animation etc.-->
+        <script src="{% static  'js/app.js' %}"></script><!--Note: All important javascript like page loader, menu, sticky menu, menu-toggler, one page menu etc. -->
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // Event handling for +/- buttons
+                $('.minus, .plus').on('click', function(event) {
+                    event.preventDefault(); // Prevent default form submission behavior
+                    var $input = $(this).siblings('input[type="number"]');
+                    var action = $(this).data('action');
+                    
+                    var currentValue = parseInt($input.val(), 10);
+                    if (action === 'increment') {
+                        $input.val(currentValue + 1);
+                    } else if (action === 'decrement' && currentValue > 0) {
+                        $input.val(currentValue - 1);
+                    }
+
+                    updateTotalPrice(); // Update total price after quantity change   
+                });
+            
+                // Function to update the total price based on quantities
+                function updateTotalPrice() {
+                    var totalPrice = 0;
+                    $('.shop-list').each(function(index) {
+                        var quantity = parseInt($(this).find('.quantity').val(), 10);
+                        var pricePerItem = parseFloat($(this).find('#product_price').text().replace(' €', ''));
+                        var articlePrice = quantity * pricePerItem;
+                        
+                        $(this).find('#article_price_'+(index+1)).text(articlePrice.toFixed(2) + ' €');
+                        totalPrice += articlePrice;
+                        
+                    });
+
+                    // Update the total price in the summary
+                    $('#sous_total_price').text(totalPrice.toFixed(2) + ' €');
+                    $('#total_price').text(totalPrice.toFixed(2) + ' €');
+                }
+            });
+        </script>
+    </body>
+</html>

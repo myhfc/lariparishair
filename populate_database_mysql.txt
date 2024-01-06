@@ -1,0 +1,74 @@
+
+INSERT INTO `accounts_shopper` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
+(1, 'pbkdf2_sha256$600000$WnuJ7H2aL1kYbCIWQBoW8y$6EPJKrnOvlIAUepfBzHELFE/f2EE9UJ/YAF6JguRt8s=', '2024-01-06 15:55:16.174184', 0, 'Berenice007', 'DUPONT', 'Bérénice', 'mdk.berah@gmail.com', 0, 1, '2024-01-06 15:55:15.171939'),
+(2, 'pbkdf2_sha256$600000$FYh2pFkr2igysdZwEKHUkd$HfnPMpR+0uN8Dbof6woubV6zRQz5vpRq2Oke3W37wuc=', '2024-01-06 23:05:03.355437', 1, 'lariparishair', '', '', '', 1, 1, '2024-01-06 23:04:03.919969');
+
+
+--
+-- Déchargement des données de la table `store_categorie`
+--
+
+INSERT INTO `store_categorie` (`id`, `name`, `image_categorie`, `image_categorie1`, `slug`) VALUES
+(1, 'PERRUQUES', 'products/categories/f1.png', 'products/categories/b1.png', 'perruques'),
+(2, 'TISSAGES', 'products/categories/f9.png', 'products/categories/b9.png', 'perruques'),
+(3, 'EXTENSIONS', 'products/categories/f11.png', 'products/categories/b11.png', 'perruques'),
+(4, 'PONYTAILS', 'products/categories/ponytail_categorie_f1.jpg', 'products/categories/ponytail_categorie_b1.png', 'perruques'),
+(5, 'LACES', 'products/categories/f4.png', 'products/categories/b4.png', 'perruques');
+
+--
+-- Déchargement des données de la table `store_finition`
+--
+
+INSERT INTO `store_finition` (`id`, `name`) VALUES
+(1, 'CLOSURE'),
+(2, '5 x 5'),
+(3, '13 x 4'),
+(4, 'FULL LACE');
+
+
+
+INSERT INTO `store_images_site_lariparis` (`id`, `name`, `image1_accueil_hero`, `image2_accueil_hero`) VALUES
+(1, 'accueil_hero_section', 'accueil/accueil_1.png', 'accueil/accueil_2.png');
+
+
+
+INSERT INTO `store_lace` (`id`, `name`) VALUES
+(1, 'HD LACE'),
+(2, 'HD 613');
+
+
+INSERT INTO `store_taille` (`id`, `name`) VALUES
+(1, '10 pouces'),
+(2, '12 pouces'),
+(3, '14 pouces'),
+(4, '16 pouces'),
+(5, '18 pouces'),
+(6, '20 pouces'),
+(7, '22 pouces'),
+(8, '24 pouces'),
+(9, '26 pouces'),
+(10, '28 pouces'),
+(11, '30 pouces');
+
+INSERT INTO `store_finition` (`id`, `name`) VALUES
+(1, 'CLOSURE'),
+(2, '5 x 5'),
+(3, '13 x 4'),
+(4, 'FULL LACE');
+
+INSERT INTO `store_lace` (`id`, `name`) VALUES
+(1, 'HD LACE'),
+(2, 'HD 613');
+
+INSERT INTO `store_product` (`id`, `name`, `price`, `stock`, `short_description1`, `short_description2`, `description`, `image1`, `image2`, `categorie_id`, `choix_lace_id`, `finition_id`, `taille_id`, `sous_categorie_perruque_id`) VALUES
+(1, 'LORENA', 350, 50, 'Mèche 100 % naturelle humaine', 'Perruque Lisse brillante', 'Cette Perruque est superbe. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.', 'products/f1.png', 'products/b1.png', 1, 1, 1, 5, 1),
+(2, 'ROSA', 450, 50, 'Mèche 100 % naturelle humaine', 'Perruque Lisse satinée', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.', 'products/f2.png', 'products/b2.png', 1, 2, 2, 6, NULL),
+(3, 'ORNELLA', 550, 14, 'Perruque Lisse brillante', 'Mèche humaine 100% Naturelle', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.', 'products/f13.png', 'products/b13.png', 1, 2, 2, 5, NULL),
+(4, 'LORETTA', 550, 14, 'Perruque Lisse brillante', 'Mèche humaine 100% Naturelle', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.', 'products/f4.png', 'products/b4.png', 1, 2, 2, 4, NULL),
+(5, 'JULIETTA', 600, 30, 'Perruque Lisse satinée', 'Mèche humaine 100% Naturelle', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.', 'products/f5.png', 'products/b5.png', 1, 2, 2, 1, NULL),
+(6, 'TISSAGE 1', 250, 10, 'Tissage Bouclée satinée', 'Mèche humaine 100% Naturelle', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. ', 'products/f3.png', 'products/b3.png', 2, NULL, NULL, 4, NULL),
+(7, 'TISSAGE 2', 245, 34, 'Tissage Lisse brillante', 'Mèche 100 % naturelle humaine', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.', 'products/f15.png', 'products/b15.png', 2, NULL, NULL, 8, NULL),
+(8, 'TISSAGE 3', 256, 50, 'Tissage Bouclée satinée', 'Mèche 100 % naturelle humaine', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero exercitationem, unde molestiae sint quae inventore atque minima natus fugiat nihil quisquam voluptates ea omnis.', 'products/f9.png', 'products/b9.png', 2, NULL, NULL, 5, NULL),
+(9, 'EXTENSION 1', 245, 20, 'Extension Bouclée satinée', 'Mèche humaine 100% Naturelle', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. ', 'products/f3.png', 'products/b3.png', 3, NULL, NULL, 8, NULL),
+(10, 'EXTENSION 2', 245, 20, 'Extension Bouclée satinée', 'Mèche humaine 100% Naturelle', 'Modèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. ', 'products/f8.png', 'products/b8.png', 3, NULL, NULL, 7, NULL),
+(11, 'LACE 1', 40, 20, 'Lace HD 613 ', '5 X 5', 'Lace HD qualité exceptionnelle. \r\nModèle extraordinaire qui sublime votre beauté. Lorem ipsum dolor sit amet consectetur adipisicing elit. 	', 'products/f1.png', 'products/b1.png', 5, 2, 2, NULL, NULL);

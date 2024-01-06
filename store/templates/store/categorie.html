@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} lariParis Hair {% endblock title %}
+
+{% block content %}
+<!-- Start Shop Product -->
+<section class="section mt-100 mb-5 pt-5 p-5">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12">
+                <h5 class="mb-2 text-center">{{ cat}}</h5>
+            </div><!--end col-->
+        </div><!--end row-->
+    
+        <div class="row">
+            {% for product in products %}
+            <div class="col-lg-3 col-md-6 col-12 mt-4 pt-2">
+                <div class="card shop-list border-0">
+                    <ul class="label list-unstyled mb-0">
+                        <li><a href="javascript:void(0)" class="badge bg-success rounded-lg">Featured</a></li>
+                    </ul>
+                    <div class="shop-image position-relative overflow-hidden rounded shadow">
+                        <a href="{% url 'product_detail' product.id %}"><img src="{{product.image1.url}}" class="img-fluid product-image" alt=""></a>
+                        <a href="{% url 'product_detail' product.id %}" class="overlay-work">
+                            <img src="{{product.image2.url}}" class="img-fluid" alt="{{product.name}}">
+                        </a>
+
+                        <ul class="list-unstyled shop-icons">
+                            <li><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-danger"><i data-feather="heart" class="icons"></i></a></li>
+                            <li class="mt-1"><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-warning"><i data-feather="shopping-cart" class="icons"></i></a></li>
+                        </ul>
+
+                    </div>
+                    <div class="card-body content pt-4 p-2">
+                        <a href="{% url 'product_detail' product.id %}" class="text-dark product-name h6">{{product.name}}</a>
+                        <div class="d-flex justify-content-between mt-1">
+                            <h6 class="text-muted small font-italic mb-0 mt-1">{{product.price}} €</h6>
+                            <ul class="list-unstyled text-warning mb-0">
+                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                                <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!--end col-->
+            {% endfor %}
+        </div><!--end row-->
+    </div><!--end container-->
+
+    <div class="container mt-100 mt-60">
+        <div class="row g-4">
+            <div class="col-lg-6 col-md-6">
+                <div class="bg-soft-secondary shop-advertise rounded p-4 py-md-5 px-lg-5">
+                    <div class="border border-2 rounded p-4 py-md-5 px-lg-4 me-lg-5">
+                        <ul class="card list-unstyled mb-0">
+                            <li><a href="javascript:void(0)" class="h4 text-dark">Prestation : <br> Mise en Beauté</a></li>
+
+                            <li class="mt-4"><a href="javascript:void(0)" class="text-secondary border-bottom">Réservation</a></li>
+                        </ul>
+                        <img src="{% static 'images/shop/items/f1.png' %}" class="img-fluid ad-image" alt="">
+                    </div>
+                </div>
+            </div><!--end col-->
+
+            <div class="col-lg-6 col-md-6">
+                <div class="bg-soft-info shop-advertise rounded p-4 py-md-5 px-lg-5">
+                    <div class="border border-2 rounded p-4 py-md-5 px-lg-4 me-lg-5">
+                        <ul class="card list-unstyled mb-0">
+                            <li><a href="javascript:void(0)" class="h4 text-dark">Pressing <br> Teinture </a></li>
+
+                            <li class="mt-4"><a href="javascript:void(0)" class="text-secondary border-bottom">Réservation</a></li>
+                        </ul>
+
+                        <img src="{% static 'images/shop/items/b2.png' %}" class="img-fluid ad-image" alt="">
+                    </div>
+                </div>
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!--end container-->
+
+</section>
+{%endblock content%}
