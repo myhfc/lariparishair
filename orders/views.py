@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+
 from orders.forms import ArticleForm, deliveryForm
-from orders.models import (AnonymousOrder, Article, Cart, ClassicOrder,
-                           Delivery, userDeliveryAdress)
+from orders.models import (Article, Cart, ClassicOrder, Delivery,
+                           userDeliveryAdress)
 from store.models import Finition, Lace, Product, Taille
 
 
@@ -38,8 +39,9 @@ def get_a_cart():
 def get_an_order(user_auth=True):
     if user_auth:
         order,_ = ClassicOrder.objects.get_or_create()
-    elif not user_auth:
+    """elif not user_auth:
         order,_ = AnonymousOrder.objects.get_or_create()
+    """
 
     #cart.update_cart_instance() #cart1 = update_cart(cart)
     #article_list = cart.articles.all()
@@ -104,11 +106,12 @@ def shop_order_delivery(request):
             order = ClassicOrder.objects.create(user=user, articles=article_list, cart=cart,
                                                 delivery_address=delivery_address) #defaults={'status': 10.0})
             order.save()
-        elif not request.user.is_authenticated:
+        """elif not request.user.is_authenticated:
             order,_ = AnonymousOrder.objects.get_or_create(cart=cart, articles=article_list,  
                                                            delivery_address=delivery_address) #defaults={'status': 10.0})
             order.save()
-
+        """
+        
         return render(request,
                 'payments/checkout.html',
                 {"order":order,

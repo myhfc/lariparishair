@@ -17,15 +17,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 import os
 
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv()
+#load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = "django-insecure-j@*+=or9p$5w2psb5e6_-o__x-jc0^dzg)s0u)1ec&9g36w&(n" #os.environ.get('SECRET_KEY')
 
 # EMAIL from google
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -36,9 +36,9 @@ EMAIL_HOST_PASSWORD = 'NeverGiveup'  # Your Gmail password or App Password (if t
 EMAIL_USE_TLS = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','lph.my-holy-father-company.software','167.99.214.216']
+ALLOWED_HOSTS = ['127.0.0.1','188.166.14.52','lph2.my-holy-father-company.software']
 
 
 # Application definition
@@ -97,7 +97,7 @@ DATABASES = {
         'NAME': 'lariparishair',#BASE_DIR / 'db.sqlite3',
         "USER" : "lariparishair",
         "PASSWORD" : "lariparishair",
-        "HOST":"127.0.0.1",
+        "HOST":"159.223.236.121",
         "PORT": "3306"
     }
 }
@@ -138,21 +138,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "static/"
-STATICFILES_DIRS = [
-    BASE_DIR / 'static/',
-]
+STATIC_ROOT = BASE_DIR / "/static/"
+#STATICFILES_DIRS = [
+#    BASE_DIR / 'static/',
+#]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+AUTH_USER_MODEL = "accounts.Shopper"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
-AUTH_USER_MODEL = "accounts.Shopper"
+
 
 # Stripe settings
+STRIPE_PUBLIC_KEY="pk_test_51OMyvgCt6WurvTMTzVuN57Cs43p8Ps1ECZswJDQr9yY5NTlIf7cDYHCpaBt12ESyLDpS2UgJIJpdCqo1SLbjqm9s00xMCqMpZw"
+STRIPE_SECRET_KEY="sk_test_51OMyvgCt6WurvTMTayJPp6F8wiK4HfmJ56CUZMESetgVPeDWQYWCglpyfPipL6IOHtH6wDX7okBOZG9a1y88feqK00uTi6LQ0z"
+STRIPE_WEBHOOK_SECRET="whsec_1ea5c65c424955547a52846c3b80bd62e705423aa764e3a7de3e1e0c35c7d2d3"
+"""
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
+"""

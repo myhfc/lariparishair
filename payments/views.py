@@ -6,7 +6,8 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-from orders.models import STATUS_ORDER, AnonymousOrder, Cart, ClassicOrder
+
+from orders.models import STATUS_ORDER, Cart, ClassicOrder
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -31,9 +32,9 @@ def CreateCheckoutSessionView(request, order_id):
         customer_email = request.user.email
         order = get_object_or_404(ClassicOrder, pk = order_id)
 
-    elif not request.user.is_authenticated:
+    """elif not request.user.is_authenticated:
         order = get_object_or_404(AnonymousOrder,pk = order_id)
-        customer_email =order.delivery_adress.email
+        customer_email =order.delivery_adress.email"""
     #price = Price.objects.get(id=self.kwargs["pk"])
     
     articles_list = order.articles.all()
@@ -106,8 +107,9 @@ def stripe_webhook(request):
             metadata = session["metadata"]
             if metadata["is_user_connected"]:
                 order = get_object_or_404(ClassicOrder, pk = int(metadata["order_id"]))
-            elif not metadata["is_user_connected"]:
+            """elif not metadata["is_user_connected"]:
                 order = get_object_or_404(AnonymousOrder,pk = int(metadata["order_id"]))
+            """
             
             articles_list = order.articles.all()
             mess = "LariParisHair vous remercions pour votre commande. "+" \n"

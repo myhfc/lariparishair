@@ -3,9 +3,9 @@ from zoneinfo import ZoneInfo
 import pytz
 from django.db import models
 from django.utils import timezone
-from store.models import Product
 
 from siteLariParis.settings import AUTH_USER_MODEL
+from store.models import Product
 
 
 class Article(models.Model):
@@ -132,9 +132,9 @@ class ClassicOrder(models.Model):
         self.total_price = self.compute_total_price()
         self.quantity_total = self.compute_total_quantity()
     
-class AnonymousOrder(models.Model):
+#class AnonymousOrder(models.Model):
     """ commandes faites par un utilisateur anonyme"""
-    #order_number = models.CharField(max_length=100, unique=True)
+    """#order_number = models.CharField(max_length=100, unique=True)
     articles = models.ManyToManyField(Article)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     delivery_address = models.ForeignKey(Delivery, on_delete=models.CASCADE, null=True)
@@ -174,4 +174,4 @@ class AnonymousOrder(models.Model):
     def update(self):
         self.total_price = self.compute_total_price()
         self.quantity_total = self.compute_total_quantity()
-    
+    """
