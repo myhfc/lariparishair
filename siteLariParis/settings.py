@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-import os
+env = environ.Env()
+env.read_env(BASE_DIR / ".env")
 
 #from dotenv import load_dotenv
 
@@ -25,7 +27,7 @@ import os
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-j@*+=or9p$5w2psb5e6_-o__x-jc0^dzg)s0u)1ec&9g36w&(n" #os.environ.get('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # EMAIL from google
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -36,9 +38,10 @@ EMAIL_HOST_PASSWORD = 'NeverGiveup'  # Your Gmail password or App Password (if t
 EMAIL_USE_TLS = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=True)
 
-ALLOWED_HOSTS = ['127.0.0.1','188.166.14.52','lph2.my-holy-father-company.software']
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", 
+                        default=['127.0.0.1','188.166.14.52','lph2.my-holy-father-company.software'])
 
 
 # Application definition
@@ -86,7 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'siteLariParis.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -152,14 +154,7 @@ AUTH_USER_MODEL = "accounts.Shopper"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
 # Stripe settings
-STRIPE_PUBLIC_KEY="pk_test_51OMyvgCt6WurvTMTzVuN57Cs43p8Ps1ECZswJDQr9yY5NTlIf7cDYHCpaBt12ESyLDpS2UgJIJpdCqo1SLbjqm9s00xMCqMpZw"
-STRIPE_SECRET_KEY="sk_test_51OMyvgCt6WurvTMTayJPp6F8wiK4HfmJ56CUZMESetgVPeDWQYWCglpyfPipL6IOHtH6wDX7okBOZG9a1y88feqK00uTi6LQ0z"
-STRIPE_WEBHOOK_SECRET="whsec_1ea5c65c424955547a52846c3b80bd62e705423aa764e3a7de3e1e0c35c7d2d3"
-"""
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
-STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET')
-"""
+STRIPE_PUBLIC_KEY=env("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY=env("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET=env("STRIPE_WEBHOOK_SECRET")
